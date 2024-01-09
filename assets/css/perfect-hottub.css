@@ -1,0 +1,34 @@
+.findperfecthothub-form form > .tve_lead_generated_inputs_container > * {
+  display: none;
+}
+
+.findperfecthothub-form
+  form
+  > .tve_lead_generated_inputs_container
+  > .tve_lg_input_container {
+  display: none;
+}
+
+.findperfecthothub-form
+  form
+  > .tve_lead_generated_inputs_container
+  > .tve-form-button
+  .tcb-button-link {
+  display: none;
+}
+
+.findperfecthothub-form form > .tve_lead_generated_inputs_container > .active {
+  display: block;
+}
+
+.findperfecthothub-form
+  form
+  > .tve_lead_generated_inputs_container
+  > .tve-form-button.active
+  .tcb-button-link {
+  display: inline-flex;
+}
+
+.findperfecthothub-actions .btn-prev a {
+  display: none;
+}

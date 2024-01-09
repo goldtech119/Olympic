@@ -1,0 +1,2036 @@
+<?php
+
+/**
+ * The Template for displaying all single products.
+ *
+ * Override this template by copying it to yourtheme/woocommerce/single-product.php
+ *
+ * @author      WooThemes
+ * @package     WooCommerce/Templates
+ * @version     3.4.5
+ */
+
+if (!defined('ABSPATH')) {
+    exit; // Exit if accessed directly
+}
+
+
+while (have_posts()) {
+    the_post();
+}
+
+global $product;
+
+
+$product_brand = '';
+$brands = array('Hot Spring®', 'Caldera® Spas', 'Fantasy® Spas', 'Freeflow® Spas', 'ht-clearance');
+$brandsSlug = array('hot-spring', 'Caldera® Spas', 'fantasy-spas', 'freeflow-spas', 'ht-clearance');
+$current_url = get_permalink();
+
+foreach ($brands as $key => $brand) {
+
+    if (stripos($product->get_categories(), $brand) !== false) {
+        $product_brand = $brandsSlug[$key];
+    }
+}
+
+$json_product_brand = json_encode($product_brand);
+
+$anchor_links = array();
+$show_features = get_field('show-features');
+$show_jets = get_field('show-jets');
+$show_reviews = get_field('show-reviews-sec');
+$show_specs = get_field('show-specs');
+$show_accessories = get_field('show-accessories');
+array_push($anchor_links, $show_features, $show_jets, $show_reviews, $show_specs, $show_accessories);
+$num_anchors = count(array_filter($anchor_links));
+//BUG FIX -- php warning division by zero
+if ($num_anchors == 0) {
+    $link_width = '100%';
+} else {
+    $link_width = 100 / $num_anchors;
+}
+?>
+
+
+<div class="anchor-links-bar">
+    <div class="anchor-links-wrapper">
+        <?php
+        echo '<a class="anchor-link-top smooth-scroll" href="#top">Back To Top</a>';
+
+        if (!empty($show_features)) {
+            echo '<a href="#explore" class="anchor-link-top smooth-scroll">Features</a>';
+        }
+        if (!empty($show_jets)) {
+            echo '<a href="#jets" class="anchor-link-top smooth-scroll">Jets</a>';
+        }
+        if (!empty($show_reviews)) {
+            echo '<a href="#reviews" class="anchor-link-top smooth-scroll">Reviews</a>';
+        }
+        if (!empty($show_specs)) {
+            echo '<a href="#specs" class="anchor-link-top smooth-scroll">Specs</a>';
+        }
+        if ((!empty($show_accessories)) && (!$product_brand === "ht-clearance")) {
+            echo '<a href="#accessories" class="anchor-link-top smooth-scroll">Accessories</a>';
+        }
+
+        echo '<a class="anchor-link-top smooth-scroll" href="/request-hot-tub-pricing/">Spa Pricing</a>';
+
+        ?>
+    </div>
+</div>
+
+<?php echo mainAspot(); ?>
+
+
+<div>
+
+
+</div>
+===============================================
+<?php
+
+    /**
+     * The Template for displaying all single products.
+     *
+     * Override this template by copying it to yourtheme/woocommerce/single-product.php
+     *
+     * @author      WooThemes
+     * @package     WooCommerce/Templates
+     * @version     3.4.5
+     */
+
+    if (!defined('ABSPATH')) {
+        exit; // Exit if accessed directly
+    }
+
+    //get_header( 'shop' ); 
+    /**
+     * woocommerce_before_main_content hook
+     *
+     * @hooked woocommerce_output_content_wrapper - 10 (outputs opening divs for the content)
+     * @hooked woocommerce_breadcrumb - 20
+     */
+    //do_action( 'woocommerce_before_main_content' );
+
+    while (have_posts()) {
+     the_post();
+    }
+
+    //EDIT HERE----------------------------------------------------------------------!
+    //GET CATEGORIES THE REAL WAY
+    global $product;
+
+
+    $product_brand = '';
+    $brands = array('Hot Spring®', 'Caldera® Spas', 'Fantasy® Spas', 'Freeflow® Spas', 'ht-clearance');
+    $brandsSlug = array('hot-spring', 'Caldera® Spas', 'fantasy-spas', 'freeflow-spas', 'ht-clearance');
+    $current_url = get_permalink();
+
+    foreach ($brands as $key => $brand) {
+
+        if (stripos($product->get_categories(), $brand) !== false) {
+            $product_brand = $brandsSlug[$key];
+        }
+
+        // if( stripos( $current_url, $brand) !== false ){
+        //      $product_brand = $brand;
+        // }
+
+    }
+
+
+
+    $json_product_brand = json_encode($product_brand);
+?>
+    <script type="text/javascript">
+        jQuery(function($) {
+            var body_class = <?php echo $json_product_brand; ?>;
+            $('body').addClass(body_class);
+            $('body').addClass('hot-tub');
+            $('body').addClass('test-class');
+        });
+    </script>
+    <?php // ANCHOR LINKS BAR
+    $anchor_links = array();
+    $show_features = get_field('show-features');
+    $show_jets = get_field('show-jets');
+    $show_reviews = get_field('show-reviews-sec');
+    $show_specs = get_field('show-specs');
+    $show_accessories = get_field('show-accessories');
+    array_push($anchor_links, $show_features, $show_jets, $show_reviews, $show_specs, $show_accessories);
+    $num_anchors = count(array_filter($anchor_links));
+    //BUG FIX -- php warning division by zero
+    if ($num_anchors == 0) {
+        $link_width = '100%';
+    } else {
+        $link_width = 100 / $num_anchors;
+    }
+    ?>
+    <div class="anchor-links-bar">
+        <div class="anchor-links-wrapper">
+            <?php
+            echo '<a class="anchor-link-top smooth-scroll" href="#top">Back To Top</a>';
+
+            if (!empty($show_features)) {
+                echo '<a href="#explore" class="anchor-link-top smooth-scroll">Features</a>';
+            }
+            if (!empty($show_jets)) {
+                echo '<a href="#jets" class="anchor-link-top smooth-scroll">Jets</a>';
+            }
+            if (!empty($show_reviews)) {
+                echo '<a href="#reviews" class="anchor-link-top smooth-scroll">Reviews</a>';
+            }
+            if (!empty($show_specs)) {
+                echo '<a href="#specs" class="anchor-link-top smooth-scroll">Specs</a>';
+            }
+            if ((!empty($show_accessories)) && (!$product_brand === "ht-clearance")) {
+                echo '<a href="#accessories" class="anchor-link-top smooth-scroll">Accessories</a>';
+            }
+
+            echo '<a class="anchor-link-top smooth-scroll" href="/request-hot-tub-pricing/">Spa Pricing</a>';
+
+            ?>
+        </div>
+    </div>
+
+
+    <?php echo mainAspot(); ?>
+
+
+    <?php
+    // TOP SECTION OF PRODUCT DETAILS PAGE ///////////////////////////////////////////////////////////////////////////////
+    ?>
+    <div class="product-heading">
+        <div class="row">
+            <div class="large-11 large-offset-1 medium-12">
+                <!-- title of top section -->
+                <div class="product-title-line">
+                    <?php
+                    //Title
+                    $title = get_the_title();
+                    $product_cap = get_field('product_cap');
+
+
+                    echo '<h1 class="title hot-tub-title">' . $title . ' ' . $product_cap . ' Person Hot Tub</h1>';
+
+
+                    //Bizarre Voice Reviews
+                    $review_code = get_field('reviews_code_embed', false, false);
+                    if (!empty($review_code)) {
+                        $tub_name = get_the_title();
+                        $tub_name = str_ireplace('<r></r>', '', $tub_name);
+                        /*echo '<div id="hotSpringSpaModel'.$tub_name.'" itemscope itemtype="http://schema.org/Product">';
+                        echo '<!-- Content Container -->';
+                        echo '<span id="UgcSummary_a0007" style="font-family: Arial, sans-serif; font-size: 12px; color: #5A5A5A;"></span>';*/
+                        echo $review_code;
+                        /*echo '</div>';*/
+
+                        echo '<hr class="product-title-line" />';
+                    }
+                    ?>
+                </div><!-- end product title line -->
+
+
+                <?php if (!is_front_page()) : ?>
+
+                    <div class="breadcrumbs">
+                        <div class="row">
+                            <?php if (function_exists('bcn_display')) {
+                                bcn_display();
+                            } ?>
+                            <div class="clear"></div>
+                        </div>
+                    </div>
+
+
+                    <!-- OLD BREADCRUMBS -->
+                    <!--
+
+                           <div class="breadcrumbs">
+                            <div class="row">
+                              <?php //BREADCRUMBS
+                                if (function_exists('yoast_breadcrumb')) {
+                                    yoast_breadcrumb('', '');
+                                }
+                                ?>
+                              <div class="clear"></div>
+                            </div>
+                          </div>
+-->
+
+
+
+                <?php endif; ?>
+                <div style="clear:both;"></div>
+            </div>
+        </div>
+    </div>
+    <!-- HEADING BODY -->
+    <!--<div class="product-customizer">-->
+    <!--<div class="prod-customize-content large-6 large-push-6 medium-12 small-12 xsmall-12  columns">-->
+    <!--<div class="prod-customize-content ">-->
+    <div class="the-product cf">
+        <div class="product-description large-6 medium-12 small-12 xsmall-12  xsmall-12 columns">
+            <?php
+            $productDescTitle = get_field("product-desc-title");
+            if (!empty($productDescTitle)) { ?>
+                <h2>
+                    <?php the_field('product-desc-title'); ?>
+                </h2>
+            <?php } ?>
+            <?php //the_excerpt(); 
+            ?><?php the_content(); ?>
+            <div class="product-anchors">
+                <?php
+                if (!empty($show_features)) {
+                    echo '<a href="#explore" class="smooth-scroll"><div class="pill-button" style="width:' . $link_width . '%"><p>Features</p></div></a>';
+                }
+                if (!empty($show_jets)) {
+                    echo '<a href="#jets" class="smooth-scroll"><div class="pill-button" style="width:' . $link_width . '%"><p>Jets</p></div></a>';
+                }
+                if (!empty($show_reviews)) {
+                    echo '<a href="#reviews" class="smooth-scroll"><div class="pill-button" style="width:' . $link_width . '%"><p>Reviews</p></div></a>';
+                }
+                if (!empty($show_specs)) {
+                    echo '<a href="#specs" class="smooth-scroll"><div class="pill-button" style="width:' . $link_width . '%"><p>Specs</p></div></a>';
+                }
+                if (!empty($show_accessories)) {
+                    echo '<a href="#accessories" class="smooth-scroll"><div class="pill-button" style="width:' . $link_width . '%"><p>Accessories</p></div></a>';
+                }
+                ?>
+                <div class="clear"></div>
+            </div>
+        </div><!-- end product description-->
+
+        <div class="custom-product-view large-6 medium-12 small-12 xsmall-12  xsmall-12 columns">
+       
+            <?php
+            $name_class = get_the_title();
+            $name_class = str_ireplace('<r></r>', '', $name_class);
+            $name_class = str_ireplace(' ', '-', $name_class);
+            $name_class = strtolower($name_class);
+            echo "<div id='spa-selector'>";
+
+            $feat_img = wp_get_attachment_image_src(get_post_thumbnail_id($post->ID), 'full');
+
+            if (have_rows('new_hot_tub_colors')) {
+                echo "<img class='ds_shell $name_class-shell' src='' />";
+                echo "<img class='ds_cabinet $name_class-cab' src='' />";
+            } elseif (!empty($feat_img[0])) {
+                echo '<img class="feat-img product-img" src="' . $feat_img[0] . '" />';
+            }
+            echo "</div>";
+            ?>
+
+
+        </div><!-- end product-view-->
+
+        <div class="product-selectors large-6 medium-12 small-12 xsmall-12  xsmall-12 columns">
+            <h3><?php the_field('product-customize-title'); ?></h3>
+            <!-- COLOR SELECTOR -->
+            <?php
+            if (have_rows('new_hot_tub_colors')) {
+                $ht_colors = 0;
+                while (have_rows('new_hot_tub_colors')) {
+                    the_row();
+
+                    $cabinetName = get_sub_field('cabinet_name'); //text
+                    $cabinetSwatchImage = get_sub_field('cabinet_swatch_image'); //text cdn url
+                    $cabinetImage = get_sub_field('cabinet_image'); //text cdn url
+                    $cabinetShellColors = get_sub_field('shell_colors'); //repeater
+
+                    $cabinet_array[$ht_colors]['cabinetName'] = $cabinetName;
+                    $cabinet_array[$ht_colors]['swatchImg'] = $cabinetSwatchImage;
+                    $cabinet_array[$ht_colors]['cabinetImg'] = $cabinetImage;
+                    if ($ht_colors == 0) {
+                        //default colors
+                        $default_cabinet = $cabinetImage;
+                        $default_ccolor = $cabinetName;
+                        $default_swatch = $cabinetSwatchImage;
+                    }
+
+                    if (have_rows('shell_colors')) {
+                        $shellNum = 0;
+                        while (have_rows('shell_colors')) {
+                            the_row();
+
+                            $shellName = get_sub_field('shell_name');
+                            $shellSwatchImage = get_sub_field('shell_swatch_image');
+                            $shellImage = get_sub_field('shell_image');
+
+                            $shell_array[$ht_colors][$cabinetName][$shellNum]['shellName'] = $shellName;
+                            $shell_array[$ht_colors][$cabinetName][$shellNum]['shellSwatch'] = $shellSwatchImage;
+                            $shell_array[$ht_colors][$cabinetName][$shellNum]['shellImg'] = $shellImage;
+                            //  echo $shellNum;
+                            if ($ht_colors == 0) {
+                                $default_shell = $shellImage;
+                                $default_scolor = $shellName;
+                                $default_sswatch = $shellSwatchImage;
+                            }
+                            $shellNum++;
+                        }
+                    }
+                    $ht_colors++;
+                }
+
+
+
+                //echo "<div id='spa-selector'>";
+                //echo "<img class='ds_shell $default_scolor' src='' />";
+                //echo "<img class='ds_cabinet $default_ccolor' src='' />";
+                //echo "</div>";
+                //echo "<br>";
+                echo '<ul class="swatches cabinet-list">';
+                if ($product_brand == 'hot-spring' || $product_brand == 'caldera-spas') {
+                    echo '<p style="font-weight:bold;">Cabinet</p>';
+                } else {
+                    echo '<p style="font-weight:bold;">Colors</p>';
+                }
+                for ($c = 0; $c < count($cabinet_array); $c++) {
+                    $cabinet = $cabinet_array[$c];
+
+                    echo '<li class="cabinet-item cabinet-' . $c . '"> <img alt="" src="';
+                    echo $cabinet['swatchImg'];
+                    $cabinet_image_array[$c] = $cabinet_array[$c]['cabinetImg'];
+                    echo '" />';
+                    $cabinet_name = $cabinet_array[$c]['cabinetName'];
+                    echo '<p>' . $cabinet_name . '</p>';
+                    echo '<ul class="cabient-' . $c . ' shell-list" >';
+                    echo '<p style="font-weight:bold;">Shell</p>';
+                    for ($s = 0; $s < count($shell_array[$c][$cabinet_name]); $s++) {
+                        $shell = $shell_array[$c][$cabinet_name][$s];
+                        //var_dump($shell_array[$c][$cabinet_name]);
+                        echo '<li class="shell-item cabinet-' . $c . '-item shell-' . $s . '"> <img alt="" src="';
+                        echo $shell['shellSwatch'];
+                        $shell_image_array[$c][$s] = $shell['shellImg'];
+                        echo '" />';
+                        $shell_name = $shell['shellName'];
+                        echo '<p>' . $shell_name . '</p>';
+                        echo '</li>';
+                    }
+                    echo '<div style="clear:both;"></div>';
+                    echo "</ul>";
+                    echo '</li>';
+                }
+                echo '<div style="clear:both;"></div>';
+                echo "</ul>";
+                echo '<div style="clear:both;"></div>';
+            } else {  ?>
+
+
+
+
+            <?php } ?>
+            <?php
+
+            $cab0 = $cabinet_image_array[0];
+            $cabinet0 = json_encode($cab0);
+            $cab0_s0 = $shell_image_array[0][0];
+            $cab0_shell0 = json_encode($cab0_s0);
+            $cab0_s1 = $shell_image_array[0][1];
+            $cab0_shell1 = json_encode($cab0_s1);
+            $cab0_s2 = $shell_image_array[0][2];
+            $cab0_shell2 = json_encode($cab0_s2);
+            $cab0_s3 = $shell_image_array[0][3];
+            $cab0_shell3 = json_encode($cab0_s3);
+            $cab0_s4 = $shell_image_array[0][4];
+            $cab0_shell4 = json_encode($cab0_s4);
+            $cab0_s5 = $shell_image_array[0][5];
+            $cab0_shell5 = json_encode($cab0_s5);
+            $cab0_s6 = $shell_image_array[0][6];
+            $cab0_shell6 = json_encode($cab0_s6);
+
+            $cab1 = $cabinet_image_array[1];
+            $cabinet1 = json_encode($cab1);
+            $cab1_s0 = $shell_image_array[1][0];
+            $cab1_shell0 = json_encode($cab1_s0);
+            $cab1_s1 = $shell_image_array[1][1];
+            $cab1_shell1 = json_encode($cab1_s1);
+            $cab1_s2 = $shell_image_array[1][2];
+            $cab1_shell2 = json_encode($cab1_s2);
+            $cab1_s3 = $shell_image_array[1][3];
+            $cab1_shell3 = json_encode($cab1_s3);
+            $cab1_s4 = $shell_image_array[1][4];
+            $cab1_shell4 = json_encode($cab1_s4);
+            $cab1_s5 = $shell_image_array[1][5];
+            $cab1_shell5 = json_encode($cab1_s5);
+            $cab1_s6 = $shell_image_array[1][6];
+            $cab1_shell6 = json_encode($cab1_s6);
+
+            $cab2 = $cabinet_image_array[2];
+            $cabinet2 = json_encode($cab2);
+            $cab2_s0 = $shell_image_array[2][0];
+            $cab2_shell0 = json_encode($cab2_s0);
+            $cab2_s1 = $shell_image_array[2][1];
+            $cab2_shell1 = json_encode($cab2_s1);
+            $cab2_s2 = $shell_image_array[2][2];
+            $cab2_shell2 = json_encode($cab2_s2);
+            $cab2_s3 = $shell_image_array[2][3];
+            $cab2_shell3 = json_encode($cab2_s3);
+            $cab2_s4 = $shell_image_array[2][4];
+            $cab2_shell4 = json_encode($cab2_s4);
+            $cab2_s5 = $shell_image_array[2][5];
+            $cab2_shell5 = json_encode($cab2_s5);
+            $cab2_s6 = $shell_image_array[2][6];
+            $cab2_shell6 = json_encode($cab2_s6);
+
+            $cab3 = $cabinet_image_array[3];
+            $cabinet3 = json_encode($cab3);
+            $cab3_s0 = $shell_image_array[3][0];
+            $cab3_shell0 = json_encode($cab3_s0);
+            $cab3_s1 = $shell_image_array[3][1];
+            $cab3_shell1 = json_encode($cab3_s1);
+            $cab3_s2 = $shell_image_array[3][2];
+            $cab3_shell2 = json_encode($cab3_s2);
+            $cab3_s3 = $shell_image_array[3][3];
+            $cab3_shell3 = json_encode($cab3_s3);
+            $cab3_s4 = $shell_image_array[3][4];
+            $cab3_shell4 = json_encode($cab3_s4);
+            $cab3_s5 = $shell_image_array[3][5];
+            $cab3_shell5 = json_encode($cab3_s5);
+            $cab3_s6 = $shell_image_array[3][6];
+            $cab3_shell6 = json_encode($cab3_s6);
+
+            $cab4 = $cabinet_image_array[4];
+            $cabinet4 = json_encode($cab4);
+            $cab4_s0 = $shell_image_array[4][0];
+            $cab4_shell0 = json_encode($cab4_s0);
+            $cab4_s1 = $shell_image_array[4][1];
+            $cab4_shell1 = json_encode($cab4_s1);
+            $cab4_s2 = $shell_image_array[4][2];
+            $cab4_shell2 = json_encode($cab4_s2);
+            $cab4_s3 = $shell_image_array[4][3];
+            $cab4_shell3 = json_encode($cab4_s3);
+            $cab4_s4 = $shell_image_array[4][4];
+            $cab4_shell4 = json_encode($cab4_s4);
+            $cab4_s5 = $shell_image_array[4][5];
+            $cab4_shell5 = json_encode($cab4_s5);
+            $cab4_s6 = $shell_image_array[4][6];
+            $cab4_shell6 = json_encode($cab4_s6);
+
+            $cab5 = $cabinet_image_array[5];
+            $cabinet5 = json_encode($cab5);
+            $cab5_s0 = $shell_image_array[5][0];
+            $cab5_shell0 = json_encode($cab5_s0);
+            $cab5_s1 = $shell_image_array[5][1];
+            $cab5_shell1 = json_encode($cab5_s1);
+            $cab5_s2 = $shell_image_array[5][2];
+            $cab5_shell2 = json_encode($cab5_s2);
+            $cab5_s3 = $shell_image_array[5][3];
+            $cab5_shell3 = json_encode($cab5_s3);
+            $cab5_s4 = $shell_image_array[5][4];
+            $cab5_shell4 = json_encode($cab5_s4);
+            $cab5_s5 = $shell_image_array[5][5];
+            $cab5_shell5 = json_encode($cab5_s5);
+            $cab5_s6 = $shell_image_array[5][6];
+            $cab5_shell6 = json_encode($cab5_s6);
+
+            $cab6 = $cabinet_image_array[6];
+            $cabinet6 = json_encode($cab6);
+            $cab6_s0 = $shell_image_array[6][0];
+            $cab6_shell0 = json_encode($cab6_s0);
+            $cab6_s1 = $shell_image_array[6][1];
+            $cab6_shell1 = json_encode($cab6_s1);
+            $cab6_s2 = $shell_image_array[6][2];
+            $cab6_shell2 = json_encode($cab6_s2);
+            $cab6_s3 = $shell_image_array[6][3];
+            $cab6_shell3 = json_encode($cab6_s3);
+            $cab6_s4 = $shell_image_array[6][4];
+            $cab6_shell4 = json_encode($cab6_s4);
+            $cab6_s5 = $shell_image_array[6][5];
+            $cab6_shell5 = json_encode($cab6_s5);
+            $cab6_s6 = $shell_image_array[6][6];
+            $cab6_shell6 = json_encode($cab6_s6);
+
+            $cab7 = $cabinet_image_array[7];
+            $cabinet7 = json_encode($cab7);
+
+            $cab8 = $cabinet_image_array[8];
+            $cabinet8 = json_encode($cab8);
+
+            $cab9 = $cabinet_image_array[9];
+            $cabinet9 = json_encode($cab9);
+
+            $cab10 = $cabinet_image_array[10];
+            $cabinet10 = json_encode($cab10);
+
+            ?>
+
+            <script type="text/javascript">
+                jQuery(function($) {
+                    //Load all cabinet images into javascript array
+                    var cabinet_image = [];
+                    var cabinet_image0 = <?php echo $cabinet0; ?>;
+                    var cabinet_image1 = <?php echo $cabinet1; ?>;
+                    var cabinet_image2 = <?php echo $cabinet2; ?>;
+                    var cabinet_image3 = <?php echo $cabinet3; ?>;
+                    var cabinet_image4 = <?php echo $cabinet4; ?>;
+                    var cabinet_image5 = <?php echo $cabinet5; ?>;
+                    var cabinet_image6 = <?php echo $cabinet6; ?>;
+                    var cabinet_image7 = <?php echo $cabinet7; ?>;
+                    var cabinet_image8 = <?php echo $cabinet8; ?>;
+                    var cabinet_image9 = <?php echo $cabinet9; ?>;
+                    var cabinet_image10 = <?php echo $cabinet10; ?>;
+                    cabinet_image.push(cabinet_image0);
+                    cabinet_image.push(cabinet_image1);
+                    cabinet_image.push(cabinet_image2);
+                    cabinet_image.push(cabinet_image3);
+                    cabinet_image.push(cabinet_image4);
+                    cabinet_image.push(cabinet_image5);
+
+                    //Load all shell images into javascript array
+                    var shell_image = [];
+                    //Cab 0
+
+                    var cab0_shell_image0 = <?php echo $cab0_shell0; ?>;
+                    var cab0_shell_image1 = <?php echo $cab0_shell1; ?>;
+                    var cab0_shell_image2 = <?php echo $cab0_shell2; ?>;
+                    var cab0_shell_image3 = <?php echo $cab0_shell3; ?>;
+                    var cab0_shell_image4 = <?php echo $cab0_shell4; ?>;
+                    var cab0_shell_image5 = <?php echo $cab0_shell5; ?>;
+                    var cab0_shell_image6 = <?php echo $cab0_shell6; ?>;
+                    shell_image.push([cab0_shell_image0, cab0_shell_image1, cab0_shell_image2, cab0_shell_image3, cab0_shell_image4, cab0_shell_image5, cab0_shell_image6]);
+
+                    //Cab 1
+                    var cab1_shell_image0 = <?php echo $cab1_shell0; ?>;
+                    var cab1_shell_image1 = <?php echo $cab1_shell1; ?>;
+                    var cab1_shell_image2 = <?php echo $cab1_shell2; ?>;
+                    var cab1_shell_image3 = <?php echo $cab1_shell3; ?>;
+                    var cab1_shell_image4 = <?php echo $cab1_shell4; ?>;
+                    var cab1_shell_image5 = <?php echo $cab1_shell5; ?>;
+                    var cab1_shell_image6 = <?php echo $cab1_shell6; ?>;
+                    shell_image.push([cab1_shell_image0, cab1_shell_image1, cab1_shell_image2, cab1_shell_image3, cab1_shell_image4, cab1_shell_image5, cab1_shell_image6]);
+
+                    //Cab 2
+                    var cab2_shell_image0 = <?php echo $cab2_shell0; ?>;
+                    var cab2_shell_image1 = <?php echo $cab2_shell1; ?>;
+                    var cab2_shell_image2 = <?php echo $cab2_shell2; ?>;
+                    var cab2_shell_image3 = <?php echo $cab2_shell3; ?>;
+                    var cab2_shell_image4 = <?php echo $cab2_shell4; ?>;
+                    var cab2_shell_image5 = <?php echo $cab2_shell5; ?>;
+                    var cab2_shell_image6 = <?php echo $cab2_shell6; ?>;
+                    shell_image.push([cab2_shell_image0, cab2_shell_image1, cab2_shell_image2, cab2_shell_image3, cab2_shell_image4, cab2_shell_image5, cab2_shell_image6]);
+
+                    //Cab 3
+                    var cab3_shell_image0 = <?php echo $cab3_shell0; ?>;
+                    var cab3_shell_image1 = <?php echo $cab3_shell1; ?>;
+                    var cab3_shell_image2 = <?php echo $cab3_shell2; ?>;
+                    var cab3_shell_image3 = <?php echo $cab3_shell3; ?>;
+                    var cab3_shell_image4 = <?php echo $cab3_shell4; ?>;
+                    var cab3_shell_image5 = <?php echo $cab3_shell5; ?>;
+                    var cab3_shell_image6 = <?php echo $cab3_shell6; ?>;
+                    shell_image.push([cab3_shell_image0, cab3_shell_image1, cab3_shell_image2, cab3_shell_image3, cab3_shell_image4, cab3_shell_image5, cab3_shell_image6]);
+
+                    //Cab 4
+                    var cab4_shell_image0 = <?php echo $cab4_shell0; ?>;
+                    var cab4_shell_image1 = <?php echo $cab4_shell1; ?>;
+                    var cab4_shell_image2 = <?php echo $cab4_shell2; ?>;
+                    var cab4_shell_image3 = <?php echo $cab4_shell3; ?>;
+                    var cab4_shell_image4 = <?php echo $cab4_shell4; ?>;
+                    var cab4_shell_image5 = <?php echo $cab4_shell5; ?>;
+                    var cab4_shell_image6 = <?php echo $cab4_shell6; ?>;
+                    shell_image.push([cab4_shell_image0, cab4_shell_image1, cab4_shell_image2, cab4_shell_image3, cab4_shell_image4, cab4_shell_image5, cab4_shell_image6]);
+
+                    //Cab 5
+                    var cab5_shell_image0 = <?php echo $cab5_shell0; ?>;
+                    var cab5_shell_image1 = <?php echo $cab5_shell1; ?>;
+                    var cab5_shell_image2 = <?php echo $cab5_shell2; ?>;
+                    var cab5_shell_image3 = <?php echo $cab5_shell3; ?>;
+                    var cab5_shell_image4 = <?php echo $cab5_shell4; ?>;
+                    var cab5_shell_image5 = <?php echo $cab5_shell5; ?>;
+                    var cab5_shell_image6 = <?php echo $cab5_shell6; ?>;
+                    shell_image.push([cab5_shell_image0, cab5_shell_image1, cab5_shell_image2, cab5_shell_image3, cab5_shell_image4, cab5_shell_image5, cab5_shell_image6]);
+
+                    //Cab 6
+                    var cab6_shell_image0 = <?php echo $cab6_shell0; ?>;
+                    var cab6_shell_image1 = <?php echo $cab6_shell1; ?>;
+                    var cab6_shell_image2 = <?php echo $cab6_shell2; ?>;
+                    var cab6_shell_image3 = <?php echo $cab6_shell3; ?>;
+                    var cab6_shell_image4 = <?php echo $cab6_shell4; ?>;
+                    var cab6_shell_image5 = <?php echo $cab6_shell5; ?>;
+                    var cab6_shell_image6 = <?php echo $cab6_shell6; ?>;
+                    shell_image.push([cab6_shell_image0, cab6_shell_image1, cab6_shell_image2, cab6_shell_image3, cab6_shell_image4, cab6_shell_image5, cab6_shell_image6]);
+
+
+                    //Set Defaults
+                    $('.ds_cabinet').attr('src', cabinet_image[0]);
+                    $('.ds_shell').attr('src', shell_image[0][0]);
+                    $(".cabinet-0").find(".shell-list").show();
+                    $(".cabinet-0").addClass("cab-selected");
+                    $(".shell-0").addClass("shell-selected");
+
+                    /*************************/
+                    /***CABINET COLOR PICKER**/
+                    /*************************/
+                    $(".cabinet-item").click(function() {
+                        //Unselect all cabinents
+                        $(".cabinet-item").each(function() {
+                            $(this).removeClass("cab-selected");
+                        });
+                        //Unselect all shells
+                        $(".shell-item").each(function() {
+                            $(this).removeClass("shell-selected");
+                        });
+                        //Add class to selected cabinet/shell
+                        $(this).addClass("cab-selected");
+                        $(this).find(".shell-0").addClass("shell-selected");
+
+                        //Close currently opened lists
+                        $(".shell-list").each(function() {
+                            $(this).hide();
+                        });
+                        //Open newly selected list
+                        $(this).find(".shell-list").toggle();
+
+                        //Get general cabinet list-item class identifier (for concatenation)
+                        var cab_preclass = "cabinet-";
+                        //For all cabinets..
+                        for (var i = 0; i < 10; i++) {
+                            //Get specific cabinent list-item class identifier (after concatenation)
+                            var cab_class = cab_preclass + i;
+                            //Find the selected cabinet number, if number is found...(continue)
+                            if ($(this).hasClass(cab_class)) {
+                                //Display selected cabinent image
+                                $('.ds_cabinet').attr('src', cabinet_image[i]);
+                                $('.ds_shell').attr('src', shell_image[i][0]);
+                            }
+                        }
+                    });
+                    /***********************/
+                    /**SHELL COLOR PICKER***/
+                    /***********************/
+                    $(".shell-item").click(function(e) {
+                        //Stop from triggering parent click function
+                        e.stopPropagation();
+                        //Unselect all shells
+                        $(".shell-item").each(function() {
+                            $(this).removeClass("shell-selected");
+                        });
+                        //Add class to selected shell
+                        $(this).addClass("shell-selected");
+
+                        //Get general cabinet/shell list-item class identifiers (for concatenation)
+                        var cab_preclass = "cabinet-";
+                        var shell_preclass = "shell-";
+                        //For all cabinets..
+                        for (var i = 0; i < 10; i++) {
+                            //Get specific cabinent list-item class identifier (after concatenation)
+                            var cab_class = cab_preclass + i + '-item';
+
+                            //Find the selected cabinet number, if number is found...(continue)
+                            if ($(this).hasClass(cab_class)) {
+
+                                for (var j = 0; j < 7; j++) {
+                                    //Get specific shell list-item class identifier (after concatenation)
+                                    var shell_class = shell_preclass + j;
+                                    //Find the selected shell number, if number is found...(continue)
+                                    if ($(this).hasClass(shell_class)) {
+                                        //alert(shell_class);
+                                        //alert(cab_class);
+                                        $('.ds_shell').attr('src', shell_image[i][j]);
+                                        //alert(shell_image[i][j]);
+                                    }
+                                }
+                            }
+                        }
+                    });
+
+                });
+            </script>
+            <?php
+            // $pricing_link_url = get_field('get_pricing_link');
+            $show_question = get_field('show_question');
+            $question_text = get_field('question_text');
+            $inquiry_btn_class = get_field('inquiry_btn_class');
+            $inquiryLinkOverride = get_field('inquiry_button_link_override');
+            $home_url = esc_url(home_url('/'));
+            $inquiry_btn_class = get_field('inquiry_btn_class');
+
+
+           
+
+
+
+            ?>
+
+            <?php
+            /**
+             * woocommerce_single_product_summary hook.
+             *
+             * @hooked woocommerce_template_single_title - 5
+             * @hooked woocommerce_template_single_rating - 10
+             * @hooked woocommerce_template_single_price - 10
+             * @hooked woocommerce_template_single_excerpt - 20
+             * @hooked woocommerce_template_single_add_to_cart - 30
+             * @hooked woocommerce_template_single_meta - 40
+             * @hooked woocommerce_template_single_sharing - 50
+             */
+
+            remove_action('woocommerce_single_product_summary', 'woocommerce_template_single_title', 5);
+            remove_action('woocommerce_single_product_summary', 'woocommerce_template_single_rating', 10);
+            remove_action('woocommerce_single_product_summary', 'woocommerce_template_single_excerpt', 20);
+            remove_action('woocommerce_single_product_summary', 'woocommerce_template_single_meta', 40);
+            remove_action('woocommerce_single_product_summary', 'woocommerce_template_single_sharing', 50);
+
+            do_action('woocommerce_single_product_summary');
+            ?>
+
+
+        </div><!-- end product-selectors-->
+
+
+        <!--</div>-->
+
+
+        <!--</div>--><!-- end product customizer -->
+
+        <?php if (empty($pricing_link_url)) {
+            $pricing_link_url = esc_url(home_url('/')) . 'request-hot-tub-pricing/';
+        }
+
+        $pricing_link_text = get_field('pricing_button_text');
+
+        if (empty($pricing_link_text)) {
+            $pricing_link_text = 'Get Pricing';
+        }
+
+        // Product Inquiry for Specific Hot Tub brand
+        $pricing_link = get_site_url() . '/request-hot-tub-pricing/';
+        $brochure_link = get_site_url() . '/download-a-brochure/';
+        switch ($product_brand) {
+            case 'hot-spring':
+                $product_brand = "Hot Spring";
+                $hotTubName = setHotTubName($product_brand, $title, $product_cap);
+
+                $brochure_link = get_site_url() . '/download-a-brochure/hot-spring-spas-brochure/?hottub=' . $hotTubName;
+                $pricing_link = get_site_url() . '/request-hot-tub-pricing/request-a-price-quote-hot-spring-spas/?hottub=' . $hotTubName;
+                break;
+            case 'caldera-spas':
+                $product_brand = "Caldera Spas";
+                $hotTubName = setHotTubName($product_brand, $title, $product_cap);
+
+                $brochure_link = get_site_url() . '/download-a-brochure/caldera-spas-brochure/?hottub=' . $hotTubName;
+                $pricing_link = get_site_url() . '/request-hot-tub-pricing/request-a-price-quote-caldera-spas/?hottub=' . $hotTubName;
+                break;
+            case 'freeflow-spas':
+                $product_brand = "Freeflow Spas";
+                $hotTubName = setHotTubName($product_brand, $title, $product_cap);
+
+                $brochure_link = get_site_url() . '/download-a-brochure/freeflow-spas-brochure/?hottub=' . $hotTubName;
+                $pricing_link = get_site_url() . '/request-hot-tub-pricing/request-a-price-quote-freeflow-spas/?hottub=' . $hotTubName;
+                $deliveryCtaUrl = "/free-setup-delivery-freeflow/";
+
+                break;
+            case 'fantasy-spas':
+                $product_brand = "Fantasy Spas";
+                $hotTubName = setHotTubName($product_brand, $title, $product_cap);
+
+                $brochure_link = get_site_url() . '/download-a-brochure/fantasy-spas-brochure/?hottub=' . $hotTubName;
+                $pricing_link = get_site_url() . '/request-hot-tub-pricing/request-a-price-quote-fantasy-spas/?hottub=' . $hotTubName;
+                break;
+            default:
+                $pricing_link = get_site_url() . '/request-hot-tub-pricing/.';
+        }
+
+
+
+        switch ($series_brand) {
+            case 'highlife':
+                $deliveryCtaUrl = "/free-setup-delivery-highlife/";
+                break;
+
+            case 'limelight':
+                $deliveryCtaUrl = "/free-setup-delivery-limelight/";
+                break;
+
+            case 'hotspot':
+                $deliveryCtaUrl = "/free-setup-delivery-hot-spot/";
+                break;
+
+            case 'freeflow-spas':
+                $deliveryCtaUrl = "/free-setup-delivery-freeflow";
+                break;
+
+            default:
+                # code...
+                break;
+        }
+
+
+
+        ?>
+
+
+        <hr style="margin:50px 0 0 0;">
+
+
+        <div class="product-btn-wrapper">
+            <div class="row" style="text-align: center;">
+                <?php
+                /*
+            if(empty($inquiryLinkOverride)){
+                echo '<a href=" '.$pricing_link.' "><div class="product-price-button">Get Pricing</div></a>';
+            }else{
+                echo '<a href="'.$inquiryLinkOverride.'"><div class="product-price-button '.$inquiry_btn_class.'">'.$question_text.'</div></a>';
+
+            }
+            */
+                ?>
+
+                <!--<a href="<?php echo $brochure_link; ?>"><div class="product-price-button">Download Brochure</div></a>-->
+
+                <?php $url360 = get_field('360_view');
+                if ($url360) { ?>
+                    <!--<a href="<? echo $url360; ?>" class="fancybox"><div class="product-price-button">360<sup>o</sup> View</div></a>-->
+                <?php } ?>
+
+                <!--<a href="<? echo $deliveryCtaUrl; ?>"><div class="product-price-button">Free Set Up and Delivery</div></a>-->
+                <!--<a href="/reserve-free-test-soak-now/"><div class="product-price-button">Schedule a Free Test Soak</div></a>
+        <a href="/free-backyard-hot-tub-installation-consultation-in-seattle/"><div class="product-price-button">Free Backyard Consultation</div></a>-->
+                <a href="/hot-tub-inquiry/">
+                    <div class="product-price-button">Ready to learn more?<br />Get pricing & schedule a test soak or backyard consult here</div>
+                </a>
+            </div>
+
+        </div><!-- end top row-->
+    </div>
+
+
+    </div>
+    </div>
+    <!------------------------ end product heading-------------------------->
+
+
+    <?php
+    // Retrieve General Content Rows
+    $general_rows = get_field('general_content_block_selector');
+
+    $general_rows_orders = array();
+
+    // Place General Content Row orders into array
+    $num_general_rows = 0;
+
+    if ($general_rows) {
+
+        foreach ($general_rows as $row) {
+
+            $general_rows_orders[$num_general_rows] = $row['global_page_order'];
+
+            $num_general_rows++;
+        }
+    }
+
+    // Add main section orders to single array - $sections_array
+    $sections_array = array($reviews_order, $products_order, $brands_order);
+
+    // Add General Content Row orders to array - $sections_array
+    if (!empty($general_rows_orders)) {
+
+        foreach ($general_rows_orders as $order) {
+
+            array_push($sections_array, $order);
+        }
+    }
+
+    /*
+ * Loop through the all sections in $sections_array.
+ * Displays them according to their section orders.
+ * Sections with equivalent orders will cause errors.
+ */
+    $order_count = count($sections_array) + 1;
+    for ($i = 0; $i < 10; $i++) {
+        $row_num = 0;
+        if (!empty($general_rows)) {
+            foreach ($general_rows as $row) {
+                if ($row['global_page_order'] == $i) {
+                    set_query_var('row_num', $row_num);
+                    /*----- GENERAL CONTENT ROW (GCR) SECTION -----*/
+                    /*------- can display multiple GCRs -----------*/
+                    get_template_part('/templates/blocks/blocks', 'general');
+                } else {
+                    $row_num++;
+                }
+            }
+        }
+    }
+    ?>
+
+
+
+
+    <!---------------------- EXPLORE SECTION (features)--------------------------------------------->
+    <?php if (!empty(get_field('show-features'))) :
+        $posts = get_field('features');
+        $feature_count = count($posts);
+        if ($feature_count <= 5) {
+            $large_grid_size = $feature_count;
+            $medium_grid_size = $feature_count;
+            $more_than_5 = '';
+        } elseif (($feature_count % 3 == 0) && ($feature_count > 3)) {
+            $large_grid_size = 3;
+            $medium_grid_size = 2;
+            $more_than_5 = 'more-than-5';
+        }
+    ?>
+        <section class="features">
+            <a id="explore" class="cat-anchor"></a> <!-- ANCHOR LINK -->
+            <div class="prod-description">
+                <div class="row">
+                    <!-- SECTION TITLES -->
+                    <h2 class="title"><?php the_field("explore-header"); ?></h2>
+                </div>
+                <div class="tabs">
+                    <div class="row tab-nav">
+                        <ul class='product-desc-list large-12 medium-12 small-12 xsmall-12  xsmall-12  columns large-block-grid-<?php echo $large_grid_size; ?> medium-block-grid-<?php echo $medium_grid_size; ?> small-block-grid-1'>
+                            <?php
+                            $count = 0;
+                            $posts = get_field('features');
+                            foreach ($posts as $post) {
+                                setup_postdata($post);
+                                //Extract Feature Post Variables
+                                $name = get_field('feature-name');
+                                $link_name = str_ireplace(' ', '-', $name);
+                                $link_name = str_ireplace('<r></r>', '', $link_name);
+                                //$name = str_ireplace('<r></r>', '', $name);
+                                $tab_index = '';
+                                //print
+                                echo '<li tabindex="' . $count . '"><a href="#' . $link_name . '" tabindex="' . $count . '" class="tab-nav-link-' . $count . '  ' . $more_than_5 . '" >' . $name . '</a></li>';
+                                $count++;
+                            }
+
+                            wp_reset_postdata();
+
+                            echo '</ul>';
+                            echo '</div><!-- end row tab nav -->';
+
+                            $posts = get_field('features');
+                            foreach ($posts as $post) {
+                                setup_postdata($post);
+                                //Extract Feature Post Variables
+                                $name = get_field('feature-name');
+                                $block_name = str_ireplace(' ', '-', $name);
+                                $block_name = str_ireplace('<r></r>', '', $block_name);
+                                //$name = str_ireplace('<r></r>', '', $name);
+                                $header = get_field('feature-header');
+                                $body = get_field('feature-body');
+                                $video = get_field('feature-video');
+                                $image = get_field('feature-single-image');
+                                $format = get_field('feature-format');
+                                $feature_title = get_the_title();
+                                $feature = get_sub_field('feature');
+
+                                $video1 = get_field('feature_video_1');
+                                $video2 = get_field('feature_video_2');
+
+                                /*$header2 = get_field('feature-2-header');
+                              $body2 = get_field('feature-2-body');
+                              $video7 = get_field('feature-2-video');
+                              $image2 = get_field('feature-2-single-image');
+                              $format2 = get_field('feature-2-format');*/
+
+                                //Display Tab Content
+                                echo '<div id="' . $block_name . '" class="tab-content">';
+                                echo '<div class="row">';
+                                echo '<div class="large-6 medium-12 small-12 xsmall-12  xsmall-12  columns image">';
+                                //IMAGE ONLY
+                                if ($format == 'Image') :
+                                    echo '<div class="large-12 xsmall-12  feature-media columns"><p><img src="' . $image . '" /></p></div>';
+                                //VIDEO ONLY
+                                elseif ($format == 'Video') :
+                                    echo '<div class="large-12 xsmall-12  feature-media columns">' . $video . '</div>';
+                                //IMAGE SLIDER ONLY
+                                elseif ($format == 'Image-Slider') :
+                                    echo '<div class="large-12 xsmall-12  feature-media columns">';
+                                    echo '<div class="slider">';
+
+
+
+                                    // check if the repeater field has rows of data
+                                    if (have_rows('image_slider_cdn')) :
+                                        // loop through the rows of data
+                                        while (have_rows('image_slider_cdn')) : the_row();
+                                            $image_slide = get_sub_field('image_url');
+                                            if (!empty($image_slide)) :
+                                                echo '<div class="gallery-side"><img src="' . $image_slide . '" /></div>';
+                                            else :
+                                            endif;
+                                        endwhile;
+
+
+                                    else :
+                                    endif;
+                                    echo '</div><!-- end slider-->';
+                                    echo '</div>';
+                                //IMAGE AND IMAGE SLIDER
+                                elseif ($format == 'Image & Image-Slider') :
+                                    echo '<div class="large-12 xsmall-12  feature-media columns"><p><img src="' . $image . '" /></p></div>';
+                                    echo '<div class="large-12 xsmall-12  feature-media columns">';
+                                    // check if the repeater field has rows of data
+                                    if (have_rows('image-slider')) :
+                                        echo '<div class="slider2">';
+                                        // loop through the rows of data
+                                        while (have_rows('image-slider')) : the_row();
+                                            $image_slide = get_sub_field('image');
+                                            if (!empty($image_slide)) :
+                                                echo '<div class="gallery-side"><img src="' . $image_slide . '" /></div>';
+                                            else :
+                                            endif;
+                                        endwhile;
+                                        echo '</div><!-- end slider-->';
+                                    else :
+
+
+                                    endif;
+                                    echo '</div>';
+                                //IMAGE AND VIDEO
+                                elseif ($format == 'Image & Video') :
+                                    echo '<div class="large-12 xsmall-12  feature-media columns">' . $video . '</div>';
+                                    echo '<div class="large-12 xsmall-12  feature-media columns"><p><img src="' . $image . '" /></p></div>';
+                                //IMAGE SLIDER AND VIDEO
+                                elseif ($format == 'Image-Slider & Video') :
+                                    echo '<div class="large-12 xsmall-12  feature-media columns">' . $video . '</div>';
+                                    echo '<div class="large-12 xsmall-12  feature-media columns">';
+                                    echo '<div class="slider" id="vidSlide">';
+                                    // check if the repeater field has rows of data
+                                    if (have_rows('image-slider')) :
+                                        // loop through the rows of data
+                                        while (have_rows('image-slider')) : the_row();
+                                            $image_slide = get_sub_field('image');
+                                            if (!empty($image_slide)) :
+                                                echo '<div class="gallery-side"><img src="' . $image_slide . '" /></div>';
+                                            else :
+                                            endif;
+                                        endwhile;
+                                    else :
+                                    endif;
+
+                                    // check if the repeater field has rows of data
+                                    if (have_rows('image_slider_cdn')) :
+                                        // loop through the rows of data
+                                        while (have_rows('image_slider_cdn')) : the_row();
+                                            $image_slide = get_sub_field('image_url');
+                                            if (!empty($image_slide)) :
+                                                echo '<div class="gallery-side"><img src="' . $image_slide . '" /></div>';
+                                            else :
+                                            endif;
+                                        endwhile;
+                                    else :
+                                    endif;
+
+                                    echo '</div><!-- end slider-->';
+
+
+
+
+                                    echo '</div>';
+                                //DOUBLE VIDEO
+                                elseif ($format == 'Double Video') :
+                                    echo '<div class="large-12 xsmall-12  feature-media columns">' . $video1 . '</div>';
+                                    echo '<div class="large-12 xsmall-12  feature-media columns"><p>' . $video2 . '</p></div>';
+                                endif;
+                                echo '</div>';
+                                echo '<div class="large-6 xsmall-12  feature-media columns content">';
+                                /*echo '<h4 class="title">'.$header.'</h4>';*/
+                                echo $body;
+                                echo '</div>';
+                                echo '<div class="clearfix"></div>';
+                                echo '</div>';
+                                echo '</div><!-- /.tab-content-->';
+                            }
+
+                            wp_reset_postdata();
+
+                            ?>
+                    </div><!-- end tabs -->
+                </div><!-- /.prod-description -->
+        </section>
+    <?php endif; ?>
+    <!-------------------------- end explore section ---------------------------->
+
+    <!------------------------------ GALLERY SECTION -------------------------------->
+    <?php
+    if (get_field('show-gallery')) {
+    ?>
+        <div class="collection-gallery">
+            <div class="row">
+                <div class="photo-section">
+                    <div class="row">
+                        <h2><?php the_field('gallery-header'); ?></h2>
+                        <!--<div class="large-2 small-12 columns">&nbsp;</div>-->
+                        <div class="large-12 medium-12 small-12 xsmall-12 columns">
+                            <div class="slider">
+                                <?php
+                                // check if the repeater field has rows of data
+                                if (have_rows('gallery')) :
+                                    // loop through the rows of data
+                                    while (have_rows('gallery')) : the_row();
+                                        $image = get_sub_field('image');
+                                        $video = get_sub_field('video');
+                                        if (!empty($image)) :
+                                            echo '<div class="gallery-side"><img src="' . $image . '" /></div>';
+                                        elseif (!empty($video)) :
+                                            echo '<div class="gallery-side">' . $video . '</div>';
+                                        endif;
+                                    endwhile;
+                                else :
+                                // no rows found
+                                endif;
+                                ?>
+                            </div>
+                        </div>
+                        <!--<div class="large-2 small-12 columns">&nbsp;</div>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    <?php } else {
+        echo " ";
+    } ?>
+    <!---------------------------end GALLERY SECTION -------------------------------->
+
+    <!------------------------- EXCLUSIVE FEATURES ------------------------------->
+    <?php
+    if (!empty(get_field('show-ex-features'))) :
+    ?>
+
+        <div class="exclusive collection-reviews">
+            <div class="row">
+                <!-- SECTION TITLES -->
+                <h2 class="title"><?php the_field("reviews-header"); ?></h2>
+                <div class="product-exclusive">
+                    <div class="row">
+                        <?php
+                        //get image variables
+                        $left_quote = '/wp-content/uploads/2015/06/left-quote.png';
+                        $right_quote = '/wp-content/uploads/2015/06/right-quote.png';
+                        ?>
+                        <!--<div class="large-2 small-12 xsmall-12  xsmall-12  columns"><img src="<?php echo $left_quote; ?>" style="float:right;"/></div>-->
+                        <?php
+                        // check if the repeater field has rows of data
+                        if (have_rows('select-features')) :
+
+                            // loop through the rows of data
+                            while (have_rows('select-features')) : the_row();
+
+                                $feature = get_sub_field('feature');
+
+                                $current_category = get_field('review-category');
+                                $args = array(
+                                    'post_type'             => 'exclusive-features',
+                                    'exclusive-feature-cat' => $current_Category,
+                                    'posts_per_page'        => -1
+                                );
+                                $query = new WP_Query($args);
+                                // The Loop
+                                if ($query->have_posts()) {
+                                    $count = 0;
+                                    while ($query->have_posts()) {
+                                        $query->the_post();
+
+                                        $title = get_field('feature-title');
+                                        $body = get_field('feature-content-body');
+
+                                        if ($title == $feature) :
+                                            echo '<div class="ex-feature-area large-12 medium-12 small-12 xsmall-12  columns">';
+                                            echo '<div class="slider large-6 medium-12 small-12 xsmall-12  columns">';
+
+                                            // check if the repeater field has rows of data
+                                            if (have_rows('feature-images')) :
+                                                // loop through the rows of data
+                                                while (have_rows('feature-images')) : the_row();
+
+                                                    $image = get_sub_field('image');
+                                                    echo '<div class="feat-wrapper">';
+                                                    echo '<div class="feat-img">';
+                                                    echo '<img class="image-feature" src="' . $image . '" />';
+                                                    echo '</div>';
+
+                                                    echo '</div>';
+                                                endwhile;
+                                            else :
+                                            // no rows found
+                                            endif;
+                                            echo '</div>';
+
+                                            echo '<div class="large-6 medium-12 small-12 xsmall-12  columns feat-content">';
+                                            echo '<h3 class="title">' . $title . '</h3>';
+                                            echo '<p>' . $body . '</p>';
+                                            echo '</div>';
+
+                                            $count++;
+
+                                            echo '</div>';
+                                        else : //do nothing
+                                        endif;
+                                    }
+                                } else {
+                                    echo " ";
+                                }
+                                wp_reset_postdata();
+
+                            endwhile;
+                        else :
+                        // no rows found
+                        endif;
+                        ?>
+                        <!--<div class="large-2 small-12 xsmall-12  columns"><img src="<?php echo $right_quote; ?>" /></div>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    <?php
+    else :
+    endif;
+    ?>
+    <!------------------------- end exclusive feats ------------------------------->
+
+    <!------------------------- JET SYSTEM ------------------------------->
+    <!--<script>
+    var tag = document.createElement('script');
+    tag.src = "//www.youtube.com/iframe_api";
+    var firstScriptTag = document.getElementsByTagName('script')[0];
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+    function onYouTubeIframeAPIReady() {
+        var $ = jQuery;
+        var players = [];
+        /*$('.jet-details iframe').filter(function(){return this.src.indexOf('http://www.youtube-nocookie.com/') == 0}).each( function (k, v) {*/
+        $('.jet-details iframe').each( function (k, v) {
+            if (!this.id) { this.id='embeddedvideoiframe' + k }
+            players.push(new YT.Player(this.id, {
+                events: {
+                    'onStateChange': function(event) {
+                        if (event.data == YT.PlayerState.PLAYING) {
+                            $.each(players, function(k, v) {
+                                if (this.getIframe().id != event.target.getIframe().id) {
+                                    this.pauseVideo();
+                                }
+                            });
+                        }
+                    }
+                }
+            }))
+        });
+    }
+</script>-->
+    <?php
+    if (!empty(get_field('show-jets'))) :
+    ?>
+        <section class="jet-systems">
+            <a id="jets"></a>
+            <div class="jet-system cat-page">
+                <?php $jet_names = array(); ?>
+                <div class="row">
+                    <h2 class="title"><?php the_field("jet-sys-header"); ?></h2>
+                    <p class="description"><?php the_field("jet-sys-sub"); ?></p>
+                    <div class="jet-system-img-wrapper large-6 medium-12 small-12 xsmall-12  columns">
+                        <div class="plus-container" id="plus-container">
+                            <?php if (!empty('the_field("jet-top-image_url")')) {
+                            ?>
+                                <img alt="jet locations on product" id="design-main-img" class="jet-main-img" src="<?php the_field("jet-top-image_url"); ?>" />
+                            <?
+                            } else { ?>
+                                <img alt="jet locations on product" id="design-main-img" class="jet-main-img" src="<?php the_field("jet-top-image"); ?>" />
+                            <?
+                            } ?>
+
+                            <!-- PLUS ICONS -->
+
+                            <?php
+                            // check if the repeater field has rows of data
+                            if (have_rows('jet-selection')) :
+                                $count = 1;
+                                // loop through the rows of data
+                                while (have_rows('jet-selection')) : the_row();
+
+                                    $args = array(
+                                        'post_type'     => 'jets',
+                                        'posts_per_page' => -1
+                                    );
+                                    $query = new WP_Query($args);
+                                    // The Loop
+                                    if ($query->have_posts()) {
+
+                                        while ($query->have_posts()) {
+                                            $query->the_post();
+                                            $jet_type = get_sub_field('jet-type');
+                                            $title = get_field('jet-name');
+                                            $post_title = get_the_title();
+
+                                            if ($jet_type == $title) :
+
+                                                $jet_names[$count] = str_ireplace(' ', '-', $title);
+                                                /* JET ICON COORDINATES */
+                                                if (have_rows('action-link-coordinates')) :
+                                                    $row_count = 0;
+                                                    // loop through the rows of data
+                                                    while (have_rows('action-link-coordinates')) : the_row();
+                                                        $x = get_sub_field('x');
+                                                        $y = get_sub_field('y');
+                                                        $jet_tag = str_ireplace('®', '', $jet_names[$count]);
+                                                        echo '<a class="plus-icon ' . $jet_tag . '" id="test-link-' . $count . '" style="left:' . $x . '; top:' . $y . ';">' . $count . '</a>';
+                                                        $row_count++;
+                                                    endwhile;
+
+                                                else :
+                                                //no rows found
+                                                endif;
+                                                /* End jet icon coords. */
+                                                $count++;
+
+                                            else : //do nothing
+                                            endif;
+                                        }
+                                    } else {
+                                        echo " ";
+                                    }
+                                    wp_reset_postdata();
+
+                                endwhile;
+                            else :
+                            // no rows found
+                            endif;
+                            ?>
+                        </div>
+                    </div> <!--  /.large-6.columns-->
+                    <div class="jets-info large-6 medium-12 small-12 xsmall-12  columns">
+
+                        <div class="tabs">
+                            <ul>
+                                <?php
+                                // check if the repeater field has rows of data
+                                if (have_rows('jet-selection')) :
+                                    $count = 1;
+                                    // loop through the rows of data
+                                    while (have_rows('jet-selection')) : the_row();
+
+                                        $args = array(
+                                            'post_type'     => 'jets',
+                                            'posts_per_page' => -1
+                                        );
+                                        $query = new WP_Query($args);
+                                        // The Loop
+                                        if ($query->have_posts()) {
+
+                                            while ($query->have_posts()) {
+                                                $query->the_post();
+
+                                                $jet_type = get_sub_field('jet-type');
+                                                $title = get_field('jet-name');
+                                                $post_title = get_the_title();
+                                                /*$post_title = str_ireplace('®', '', $post_title);*/
+                                                //$jet_icon = str_ireplace(' ', '-', $title );
+
+                                                if ($jet_type == $title) :
+                                                    $desc = get_field('jet-desc');
+                                                    // $image = get_field('jet-image');
+                                                    $image = get_field('jet-image_url');
+                                                    $video = get_field('jet-video');
+                                                    // display a sub field value
+                                                    echo '<li class="jet-system-list-item"><a href="#tabs-' . $count . '" id="test-link-' . $count . '" class="jet-link">' . $count . ' - ' . $post_title . '</a></li>';
+                                                    //echo '<li class="plus-item"><a href="#tabs-'.$count.'" class="plus-icon"></a></li>';
+                                                    echo '<div id="tabs-' . $count . '" class="tab-content jet-details">';
+                                                    //image
+                                                    if (!empty($image)) : echo '<img class="acc-image" src="' . $image . '" />';
+                                                    else :
+                                                    endif;
+                                                    //video
+                                                    if (!empty($video)) : echo '<p>' . $video . '</p>';
+                                                    else :
+                                                    endif;
+                                                    //description
+                                                    echo '<div class="acc-content">' . $desc . '</div>';
+                                                    echo '</div>';
+                                                    echo '<div style="clear:both;"></div>';
+
+                                                    //plus-icons
+                                                    //echo '<a class="plus-icon '.$jet_icon.'" id="test-link-'.$count.'"></a>';
+                                                    $jet_names[$count] = str_ireplace(' ', '-', $title);
+
+                                                    $count++;
+
+
+
+
+                                                else : //do nothing
+                                                endif;
+                                            }
+                                        } else {
+                                            echo " ";
+                                        }
+                                        wp_reset_postdata();
+
+                                    endwhile;
+                                else :
+                                // no rows found
+                                endif;
+
+                                ?>
+                            </ul>
+
+                        </div> <!--  /.tabs-->
+
+
+                    </div> <!--  /.large-6.columns-->
+                </div> <!--  /.row-->
+
+            </div> <!--  /.jet-system-->
+        </section>
+    <?php
+    endif;
+    ?>
+    <!---------------------------- end jet system ----------------------------------->
+
+    <!------------------------ 360 VIEW & REVIEWS SECTION-------------------------------------->
+    <?php
+    if (!empty(get_field('show-reviews-sec'))) :
+        $selected_reviews = get_field('select_reviews', false, false);
+    ?>
+        <a id="reviews"></a>
+        <div class="collection-reviews">
+            <div class="row">
+                <!-- SECTION TITLES -->
+
+                <!--<div class="large-6 columns">
+                <h2 class="title">360<sup>o</sup> VIEW</h2>
+                <?php if (get_field('3d_image')) { ?>
+                <div class="spin-border">
+                <div id="spritespin"></div>
+                </div>
+                <style>
+                .spin-border {
+                text-align:center;
+                margin:0 auto;
+                width:90%;
+                background:transparent;
+                height:;
+                border-radius:10px;
+                padding: 20px;
+                }
+                #spritespin { margin: 0 auto; }
+                #spritespin img {
+                max-width:none !important;
+                }
+                .spritespin-stage img { cursor: url('http://code.vostrel.net/jquery.reel.cur'),move }
+                .spritespin-stage {  top: -35px !important;  /* background: url('/wp-content/uploads/2015/06/arai-360-front.png') no-repeat !important;
+                background-size: 70% !important;
+                background-position: 75px 65px !important; */ }
+                </style>
+                <script type="text/javascript">
+
+                var spin = $('#spritespin');
+                var api;
+
+                spin.spritespin({
+                source: '<?php the_field('3d_image'); ?>',
+                width: 700,
+                height: 560,
+                frames: 36,
+                framesX: 6,
+                frameTime:70,
+                behavior: 'drag',
+                renderer: 'image',
+                loop:false,
+                });
+
+
+                api = spin.spritespin("api");
+
+                $('#spritespin').click(function(){
+                api.toggleAnimation();
+                });
+
+
+
+                </script>
+                <?php } ?>
+
+                </div>-->
+
+                <!--<div class="product-reviews large-6 columns">-->
+                <div class="product-reviews large-12 xsmall-12 columns">
+                    <h2 class="title"><?php the_field("reviews-header"); ?></h2>
+                    <div class="quote-section">
+                        <?php
+                        $review_category = get_field('review-category');
+                        $review_term = get_term($review_category, 'review_cat');
+                        //echo '<h1>'.$review_category.'</h1>';
+                        ?>
+                        <!--<div class="row">-->
+                        <?php
+                        //get image variables
+                        $left_quote = 'https://s3.amazonaws.com/wp-agilitysquared/myproductdata/wp-content/uploads/2015/06/left-quote.png';
+                        $right_quote = 'https://s3.amazonaws.com/wp-agilitysquared/myproductdata/wp-content/uploads/2015/06/right-quote.png';
+                        $right_quote_white = 'https://s3.amazonaws.com/wp-agilitysquared/myproductdata/wp-content/uploads/2015/10/right-quote-white1.png';
+                        $left_quote_white = 'https://s3.amazonaws.com/wp-agilitysquared/myproductdata/wp-content/uploads/2015/10/left-quote-white1.png';
+                        ?>
+                        <div class="left-quote large-2 medium-2 small-1 columns"><img alt="Left Quotation Mark" src="<?php echo $left_quote_white; ?>" style="float:right;" /></div>
+                        <div class="large-8 medium-8 small-12 xsmall-12  columns" style="padding-left: 0; padding-right:0;">
+
+                            <div class="slider">
+
+                                <?php
+                                $args = array(
+                                    'post_type'     => 'reviews',
+                                    'tax_query'     => array(
+                                        array(
+                                            'taxonomy'  =>  'reviews_cat',
+                                            'field'     =>  'slug',
+                                            'terms'     =>  $review_category->slug,
+                                        ),
+                                    ),
+                                    'post__in'          => $selected_reviews,
+                                    'posts_per_page' => 5
+                                );
+                                $query = new WP_Query($args);
+                                // The Loop
+                                if ($query->have_posts()) {
+                                    while ($query->have_posts()) {
+                                        $query->the_post();
+                                        /*if(in_category($review_category->slug)){*/
+                                        $quote = custom_field_excerpt();
+                                        $review_title = get_the_title();
+                                        $owner = get_field('review-owner');
+                                        $location = get_field('review-location');
+                                        $raw_score = get_field('review-score');
+                                        $score = round(floatval($raw_score));
+                                        $score_img = 'https://s3.amazonaws.com/wp-agilitysquared/myproductdata/wp-content/uploads/2015/07/' . $score . '_star_rating.png';
+
+                                        echo '<div>';
+
+                                        echo '';
+                                        //if (!empty($score)) : echo '<h3>Rating: '.$score.'</h3>'; else :  endif;
+                                        if (!empty($raw_score)) {
+                                            echo '<img alt="Customer Rating: ' . $score . ' Stars" src="' . $score_img . '" class="review-score-img" />';
+                                        }
+                                        echo '<blockquote><p>' . $review_title . '</p></blockquote>';
+                                        echo '<blockquote>' . $quote . '</blockquote>';
+                                        if ((!empty($owner)) && (!empty($location))) {
+                                            echo '<p class="quote-author">' . $owner . ' - ' . $location . '</p>';
+                                        }
+                                        echo '</div>';
+                                        /*}else { echo '&nbsp;'; }*/
+                                    }
+                                } else {
+                                    echo '<p class="quote-author">There are no reviews for this product at this time</p>';
+                                }
+                                wp_reset_postdata();
+                                ?>
+                            </div>
+                        </div>
+                        <div class="right-quote large-2 medium-2 small-1 columns"><img alt="Right Quotation Mark" src="<?php echo $right_quote_white; ?>" style="float:left;" /></div>
+                        <div style="clear:both;"></div>
+                        <!--</div>-->
+                        <!--<div class="large-12 columns"><a href="<?php the_field('reviews-link'); ?>"><div class="view-more-reviews"><?php the_field('all-reviews-text'); ?></div></a></div>-->
+                        <div style="clear:both;"></div>
+                    </div>
+
+                </div><!--end review side-->
+            </div>
+        </div>
+    <?php
+    else :
+    endif;
+    ?>
+    <!------------------------ end reviews section---------------------------------->
+
+
+    <!-- START NEW 2018 SPECS CODE BY JUAN -->
+    <?php
+    if (!empty(get_field('show-specs'))) {
+        $width = get_field('spa_width');
+        $height = get_field('spa_height');
+    ?>
+        <a id="specs"></a>
+        <div class="prod-specs">
+            <div class="row">
+                <h2 class="title large-12 columns"><?php the_field('specs-header'); ?></h2>
+                <div class="spec-image large-6 large-push-6 medium-12 small-12 xsmall-12  columns">
+                    <div class="spec-img-wrapper">
+                        <?php
+                        if (!empty('the_field("jet-top-image_url")')) {
+                            $jet_top_image = get_field('jet-top-image_url');
+                        } else {
+                            $jet_top_image = get_field('jet-top-image');
+                        }
+
+                        if (!empty($jet_top_image)) { ?>
+                            <img src="<?php
+                                        if (!empty('the_field("jet-top-image_url")')) {
+                                            the_field('jet-top-image_url'); ?>" height="400" alt="">
+                            <?    } else {
+                                            if (!empty('the_field("jet-top-image")')) {
+                                                the_field('jet-top-image'); ?>" height="400" alt=""> <?
+                                                                                                    }
+                                                                                                } ?>
+                    <?php if (!empty($height) && !empty($width)) { ?>
+                        <div class="height">
+                            <p><?php echo $height; ?></p>
+                        </div>
+                        <div class="width">
+                            <p><?php echo $width; ?></p>
+                        </div>
+                    <?php }; ?>
+                <?php } ?>
+                    </div>
+                </div>
+                <style>
+                    table.prod-specs-table td {
+                        padding: 10px 5px;
+                    }
+                </style>
+                <div class=" spec-details large-6 large-pull-6 medium-12 small-12 xsmall-12  columns">
+                    <!--PRIMARY SPECS-->
+                    <div class="specs-primary tabs">
+                        <ul class="prod-specs-list ">
+                            <li><a href="#tabs-1">PRIMARY SPECS</a></li>
+                            <div id="tabs-1" class="tab-content main-specs">
+                                <table class="prod-specs-table">
+                                    <?php
+                                    if (have_rows('primary_specs')) {
+                                        while (have_rows('primary_specs')) {
+                                            the_row(); ?>
+
+                                            <tr>
+                                                <td>
+                                                    <p class="table-key"><?php the_sub_field('name'); ?></p>
+                                                </td>
+                                                <td>
+                                                    <p><?php the_sub_field('value'); ?></p>
+                                                </td>
+                                            </tr>
+
+                                    <?php }
+                                    } ?>
+
+                                </table>
+                            </div>
+                        </ul>
+                    </div>
+                    <div class="specs-additional tabs">
+                        <ul class="prod-specs-list">
+                            <li><a href="#tabs-1">ADDITIONAL SPECS</a></li>
+                            <div id="tabs-1" class="tab-content">
+                                <table class="prod-specs-table">
+                                    <?php
+                                    if (have_rows('additional_specs')) {
+                                        while (have_rows('additional_specs')) {
+                                            the_row(); ?>
+
+                                            <tr>
+                                                <td>
+                                                    <p class="table-key"><?php the_sub_field('name'); ?></p>
+                                                </td>
+                                                <td>
+                                                    <p><?php the_sub_field('value'); ?></p>
+                                                </td>
+                                            </tr>
+
+                                    <?php }
+                                    } ?>
+
+                                </table>
+                            </div>
+                        </ul>
+                        <?php
+                        $footNotes = get_field('additional_footnotes');
+                        if (!empty($footNotes)) {
+                        ?>
+                            <div>
+                                <p class="note-tab">Notes</p>
+                                <table class="prod-specs-table">
+                                    <tr>
+                                        <td colspan="2">
+                                            <p style="text-align:center;"><?php echo  $footNotes; ?></p>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        <?php } ?>
+                    </div>
+                    <?php
+                    $show_button = get_field("show_warranty_button");
+                    $button_text = get_field("warranty_button_text");
+                    $button_link = get_field("warranty_button_link");
+                    $show_second_button = get_field("show_secondary_button");
+                    $button_second_text = get_field("secondary_button_text");
+                    $button_second_link = get_field("secondary_button_link");
+                    ?>
+
+                    <div class="specs-buttons">
+
+                        <?php if (!empty($show_button)) { ?>
+                            <a class="product-price-button warranty-link" href="<?php echo $button_link ?>" target="_blank"><?php echo $button_text ?></a>
+                        <?php } ?>
+
+                        <?php if (!empty($show_second_button)) { ?>
+                            <a class="product-price-button secondary-button-link" href="<?php echo $button_second_link ?>" target="_blank"><?php echo $button_second_text ?></a>
+                        <?php } ?>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+        </div>
+        </div>
+
+
+    <?php } ?>
+
+    <!-- END NEW 2018 SPECS CODE BY JUAN -->
+
+    <!---------------------------- ACCESSORIES -------------------------------------->
+    <?php
+    if ($product_brand != "ht-clearance") {
+        $show_accessory_block = get_field('show-accessories');
+        $accessory_type = get_field('accessory_type');
+        if (!empty($show_accessory_block)) :
+            echo '<a id="accessories"></a>';
+    ?>
+            <div class="accessories exclusive-features">
+                <div class="row">
+                    <!-- SECTION TITLES -->
+                    <h2 class="title"><?php the_field("accessories-header"); ?></h2>
+                    <?php
+                    /* FEATURE BLOCKS */
+
+                    $accessory_brand_slug = $product_brand . '-accessories';
+
+                    $prod = get_term_by('slug', $accessory_brand_slug, 'product_cat');
+                    $brand_accessories_cat_id = $prod->term_id;
+                    //Show Accessory Categories
+                    if ($accessory_type == 'cat') {
+                        $taxonomy     = 'product_cat';
+                        $parent       = $brand_accessories_cat_id;
+                        $orderby      = 'name';
+                        $show_count   = 0;      // 1 for yes, 0 for no
+                        $pad_counts   = 0;      // 1 for yes, 0 for no
+                        $hierarchical = 1;      // 1 for yes, 0 for no
+                        $title        = '';
+                        $empty        = 0;
+                        $order        = 'DESC';
+                        $args = array(
+                            'taxonomy'     => $taxonomy,
+                            'parent'       => $parent,
+                            'orderby'      => $orderby,
+                            'show_count'   => $show_count,
+                            'pad_counts'   => $pad_counts,
+                            'hierarchical' => $hierarchical,
+                            'title_li'     => $title,
+                            'hide_empty'   => $empty,
+                            'order'        => $order
+
+                        );
+
+                        $sub_accessory_categories = get_categories($args);
+                        $num_accessories_cats = count($sub_accessory_categories);
+                        $accessories_class = '';
+                        switch ($num_accessories_cats) {
+                            case 4:
+                                $accessories_class = 'large-3 medium-6 small-12 xsmall-12';
+                                break;
+                            case 5:
+                                $accessories_class = 'large-4 medium-6 small-12 xsmall-12';
+                                break;
+                            case 6:
+                                $accessories_class = 'large-4 medium-6 small-12 xsmall-12';
+                                break;
+                            case 7:
+                                $accessories_class = 'large-3 medium-6 small-12 xsmall-12';
+                                break;
+                            case 8:
+                                $accessories_class = 'large-3 medium-6 small-12 xsmall-12';
+                                break;
+                            default:
+                                $accessories_class = 'large-3 medium-6 small-12 xsmall-12';
+                        }
+                        foreach ($sub_accessory_categories as $cat) {
+                            //print_r($cat);
+                            $brand_accessories_cat_id = '';
+                            /*switch($product_brand){
+            case 'hot-spring':
+            $brand_accessories_cat_id = 131;
+            break;
+            case 'caldera-spas':
+            $brand_accessories_cat_id = 130;
+            break;
+            case 'freeflow-spas':
+            $brand_accessories_cat_id = 133;
+            break;
+            case 'fantasy-spas':
+            $brand_accessories_cat_id = 132;
+            break;
+            default:
+        }*/
+
+                            /*if($cat->category_parent == $brand_accessories_cat_id) {*/
+                            //$category_id = $cat->term_id;
+                            $thumbnail_id = get_woocommerce_term_meta($cat->term_id, 'thumbnail_id', true);
+                            $image = wp_get_attachment_url($thumbnail_id);
+                            $name = strtolower($cat->name);
+                            $formatted_name = preg_replace('/[ ,]+/', '-', trim($name));
+                            $formatted_name = str_replace('&', '-', $formatted_name);
+                            $formatted_name = str_replace('amp;', '-', $formatted_name);
+                            $formatted_name = str_replace('----', '-', $formatted_name);
+                            $formatted_product_brand = preg_replace('/[ ,]+/', '-', trim(strtolower($product_brand)));
+                            $formatted_product_brand = str_replace(' ', '-', $formatted_product_brand);
+                            if ($formatted_name == 'hot-tub-water-care') {
+                                if ($formatted_product_brand == 'hot-spring') {
+                                    $formatted_product_brand = "hot-spring-spas";
+                                }
+                                $link = '/water-care/' . $formatted_product_brand . '-water-care/';
+                            } else {
+                                $link = '/spa-accessories/' . $formatted_product_brand . '-accessories/' . $formatted_name;
+                            }
+
+
+                            echo '<div class="feature-block ' . $accessories_class . ' columns">';
+                            echo '<a href="' . $link . '"><div class="feature-name">' . $cat->name . '</div></a>';
+                            if ($image) {
+                                echo '<a href="' . $link . '"><img class="feature-block-img" src="' . $image . '" alt="" /></a>';
+                            }
+                            /*echo '<div class="feature-desc">'.$cat->category_description.'</div>';*/
+                            echo '<a href="' . $link . '" class="learn-more-link">LEARN MORE</a>';
+                            echo '</div>';
+                            /*}*/
+                        }
+                    } // End Accessory Categories
+
+                    if ($accessory_type == 'product') {
+                        $acc_products = get_field('acc_products');
+                        if ($acc_products) {
+                            foreach ($acc_products as $post) {
+                                //Take each product and extract variables
+                                setup_postdata($post);
+                                $product_name = get_the_title();
+                                $product_img = wp_get_attachment_image_src(get_post_thumbnail_id($post->ID), 'full');
+                                $product_link = get_permalink();
+                                //Print accessory product block
+                                echo '<div class="feature-block large-3 medium-6 small-12 xsmall-12  columns">';
+                                echo '<a href="' . $product_link . '"><div class="feature-name">' . $product_name . '</div></a>';
+                                if ($product_img[0]) {
+                                    echo '<div class="block-img-wrap"><a href="' . $product_link . '" class="feature-block-link"><img class="feature-block-img" src="' . $product_img[0] . '" alt="" /></a></div>';
+                                }
+                                /*echo '<div class="feature-desc">'.$cat->category_description.'</div>';*/
+                                echo '<a href="' . $product_link . '" class="learn-more-link">LEARN MORE</a>';
+                                echo '</div>';
+                            }
+                            wp_reset_postdata();
+                        }
+                    } //End Accessory Products
+                    ?>
+                </div><!-- /. row -->
+            </div> <!-- /. exclusive feats -->
+    <?php
+        else :
+        endif;
+    }   ?>
+    <!---------------------------- end accessories ---------------------------------->
+
+    <!---------------------------- GET PRICING -------------------------------------->
+    <!--
+<?php
+    //if (!empty(get_field('show-pricing'))) :
+?>
+<div class="get-pricing">
+<div class="row">
+<!-- SECTION TITLES --
+<h2 class="title"><?php // the_field("pricing-header"); 
+                    ?></h2>
+<!-- VIEWER 360  --
+<div class="pricing-spinner large-6 medium-12 small-12 xsmall-12  columns">
+<img src="<?php // the_field('price-image'); 
+            ?>" />
+</div>
+<!-- PRICE FORM --
+<div class="pricing-product-form large-6 medium-12 small-12 xsmall-12  columns">
+<?php
+    // $form = get_field('pricing-form');
+    // echo do_shortcode('[gravityform id="' . $form['id'] . '" title="false" description="false" ajax="true"]');
+?>
+</div>
+
+</div>
+</div>
+<?php
+    //else :
+    //endif;
+?> -->
+    <!---------------------------- end pricing -------------------------------------->
+
+    <?php
+    //STOP EDITING HERE ----------------------------------------------------------------;
+    ?>
+<?php endwhile; // end of the loop. 
+?>
+
+<?php
+/**
+ * woocommerce_after_main_content hook
+ *
+ * @hooked woocommerce_output_content_wrapper_end - 10 (outputs closing divs for the content)
+ */
+do_action('woocommerce_after_main_content');
+?>
+
+<?php
+/**
+ * woocommerce_sidebar hook
+ *
+ * @hooked woocommerce_get_sidebar - 10
+ */
+//do_action( 'woocommerce_sidebar' );
+?>
+<!-- Structure Data -->
+<?php
+global $post;
+$terms = get_the_terms($post->ID, 'product_cat');
+foreach ($terms as $term) {
+    $product_cat = $term->name;
+    break;
+}
+$large_image_url = wp_get_attachment_image_src(get_post_thumbnail_id($post->ID), 'large');
+$sdBrand = $product_cat;
+$sdProductName = get_the_title();
+$sdProductImage = esc_url($large_image_url[0]);
+$sdProductDescription = strip_tags(get_the_excerpt());
+?>
+<script type='application/ld+json'>
+    {
+        "@context": "http://www.schema.org",
+        "@type": "product",
+        "brand": "<?php echo $sdBrand; ?>",
+        "name": "<?php echo $sdProductName; ?>",
+        "image": "<?php echo $sdProductImage; ?>",
+        "description": "<?php echo $sdProductDescription; ?>"
+    }
+</script>
+
+<?php //get_footer(); 
+?>
+<script type="text/javascript">
+    jQuery(".prod-description .tabs").tabs({
+        select: function(event, ui) {
+            if (ui.index == myTabIndex) {
+                $.post(URL, function(data) {
+                    alert("hello")
+                });
+            }
+        }
+    });
+</script>
+
+
+<script>
+    jQuery(window).ready(function() {
+        window.setTimeout(function() {
+            jQuery('#vidSlide').slick("slickPlay");
+        }, 200);
+
+    });
+</script>
