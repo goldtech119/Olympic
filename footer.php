@@ -1,3 +1,4 @@
+<!-- this is footer -->
 <?php
 /**
  * Thrive Themes - https://thrivethemes.com
@@ -8,6 +9,7 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Silence is golden!
 }
+
 
 if ( is_page( 'experience' ) ) {
 }
